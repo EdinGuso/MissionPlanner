@@ -32,13 +32,15 @@ WelcomeWindow::~WelcomeWindow() {
     delete newProjectAct;
     delete openProjectAct;
     delete fileMenu;
+    ///delete nextWindow; cannot delete this because at this point it is already deleted
 }
 
 
 void WelcomeWindow::openProjectClicked() {
     QString message = "Open a folder that contains a qmp configuration";
     QString location = QStandardPaths::writableLocation(QStandardPaths::DocumentsLocation);
-    QString directoryName = QFileDialog::getExistingDirectory(this, message, location, QFileDialog::ShowDirsOnly | QFileDialog::DontResolveSymlinks);
+    QString directoryName = QFileDialog::getExistingDirectory(this, message, location,
+                                                              QFileDialog::ShowDirsOnly | QFileDialog::DontResolveSymlinks);
 
     if(directoryName.isNull() || directoryName.isEmpty()) {
         QMessageBox errorMessageBox(QMessageBox::Information, "Canceled",
@@ -106,15 +108,14 @@ void WelcomeWindow::newProjectClicked() {
     ImageLabel *nextWindowMapDisplay = nextWindow->getMapDisplay();
     QSize displaySize = nextWindowMapDisplay->size();
 
-    ScaleDialog dialog(QPixmap(filename).toImage(), pixelLength, realLength, pixelOrigin, displaySize, QGuiApplication::primaryScreen()->availableSize());
+    ScaleDialog dialog(QPixmap(filename).toImage(), pixelLength, realLength, pixelOrigin,
+                       displaySize, QGuiApplication::primaryScreen()->availableSize());
     connect(&dialog, &ScaleDialog::accepted, this, &WelcomeWindow::scaleInputsAccepted);
     dialog.exec();
 }
 
 
 void WelcomeWindow::scaleInputsAccepted() {
-
-
     nextWindow->setPixelLength(pixelLength);
     nextWindow->setRealLength(realLength);
     nextWindow->setPixelOrigin(pixelOrigin);
@@ -125,10 +126,7 @@ void WelcomeWindow::scaleInputsAccepted() {
 
 void WelcomeWindow::setupWidgets(){
     QSize screenSize = QGuiApplication::primaryScreen()->availableSize();
-    //QSize screenSize = QGuiApplication::screens()[1]->availableSize();
     QSizeF physicalScreenSize = QGuiApplication::primaryScreen()->physicalSize();
-    //QSizeF physicalScreenSize = QGuiApplication::screens()[1]->physicalSize();
-    //double resolution = screenSize.width() / physicalScreenSize.width();
 
     const int WIDTH_CONSTANT = int(screenSize.width() / 6.0);
     const int HEIGHT_CONSTANT = int(screenSize.height() / 15.0);
@@ -139,7 +137,7 @@ void WelcomeWindow::setupWidgets(){
                     QPoint(screenSize.width() / 2 - WIDTH_CONSTANT / 2, HEIGHT_CONSTANT * 3),
                     QSize(WIDTH_CONSTANT, HEIGHT_CONSTANT * 3)),
                 TextInfo(
-                    QString("Welcome to\nMissioon Planner\nsoftware!1"),
+                    QString("Welcome to\nMissioon Planner\nsoftware!"),
                     QFont("Times", FONT_CONTSTANT)),
                 this);
 
@@ -154,7 +152,8 @@ void WelcomeWindow::setupWidgets(){
 
     newProjectButton = new PushButton(
                 DisplayInfo(
-                    QPoint(openProjectButton->pos().x() + openProjectButton->size().width(), titleText->pos().y() + titleText->size().height()),
+                    QPoint(openProjectButton->pos().x() + openProjectButton->size().width(),
+                           titleText->pos().y() + titleText->size().height()),
                     QSize(WIDTH_CONSTANT / 2, HEIGHT_CONSTANT)),
                 TextInfo(
                     QString("New Project"),
@@ -163,7 +162,8 @@ void WelcomeWindow::setupWidgets(){
 
     descriptionText = new TextLabel(
                 DisplayInfo(
-                    QPoint(openProjectButton->pos().x(), openProjectButton->pos().y() + openProjectButton->size().height()),
+                    QPoint(openProjectButton->pos().x(),
+                           openProjectButton->pos().y() + openProjectButton->size().height()),
                     QSize(WIDTH_CONSTANT, HEIGHT_CONSTANT * 3)),
                 TextInfo(
                     QString("You should either load a previous\n"

@@ -24,11 +24,6 @@ Vehicle::~Vehicle() {}
 
 
 bool Vehicle::isInside(QPointF point, double zoomAmount) {
-    ///both blocks of code do the same thing. i chose division because it has less operations
-    //if(point.x() > display.pos.x() * zoomAmount &&
-    //        point.y() > display.pos.y() * zoomAmount &&
-    //        point.x() < display.pos.x() * zoomAmount + display.size.width() * zoomAmount &&
-    //        point.y() < display.pos.y() * zoomAmount + display.size.height() * zoomAmount)
     if(point.x() / zoomAmount > display.pos.x() &&
             point.y() / zoomAmount > display.pos.y() &&
             point.x() / zoomAmount < display.pos.x() + display.size.width() &&
@@ -169,6 +164,7 @@ void Vehicle::highlight(QImage *img, int thickness) {
 
 
 void Vehicle::move(QPoint point) {
+    ///rx and ry methods return a reference to the values, therefore it is possible to use += operator
     display.pos.rx() += point.x();
     display.pos.ry() += point.y();
 }

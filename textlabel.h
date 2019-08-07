@@ -36,7 +36,7 @@ public:
 
         @param<display> initializes @variable<display>
         @param<text> initializes @variable<text>
-        @param<parent> ointer to the parent of the object, passed onto the @class<QLabel> constructor
+        @param<parent> pointer to the parent of the object, passed onto the @class<QLabel> constructor
     */
     TextLabel(DisplayInfo display = DisplayInfo(), TextInfo text = TextInfo(), QWidget *parent = nullptr);
 

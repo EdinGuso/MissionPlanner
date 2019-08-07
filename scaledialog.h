@@ -60,7 +60,7 @@ private slots:
     /**
         Recieves the mouse left click signal from mapDisplay
 
-        @param<mousePos> is set as tha background image
+        @param<mousePos> is the local position of the cursor
     */
     void mouseLeftClick(QPoint mousePos);
 
@@ -68,7 +68,7 @@ private slots:
     /**
         Recieves the mouse right click signal from mapDisplay
 
-        @param<mousePos> is set as tha background image
+        @param<mousePos> is the local position of the cursor
     */
     void mouseRightClick(QPoint mousePos);
 

@@ -56,8 +56,65 @@ MapWindow::MapWindow(QString directoryName, QWidget *parent) : QMainWindow(),
 MapWindow::~MapWindow() {
     delete ui;
     delete mapScroll;
-    //delete mapDisplay; cannot delete mapDisplay since it is already deleted when mapscroll is deleted
-    //delete all pointers here
+    ///delete mapDisplay; cannot delete mapDisplay since it is already deleted when mapscroll is deleted
+    delete vehicleButton;
+    delete missionButton;
+    delete exitButton;
+    delete roverButton;
+    delete quadButton;
+    delete fwuavButton;
+    delete missionFromVehicleButton;
+    delete reachBox;
+    delete patrolBox;
+    delete noflyBox;
+    delete rectangleBox;
+    delete circleBox;
+    delete polygonBox;
+    delete backButton;
+    delete vehicleOneBox;
+    delete vehicleTwoBox;
+    delete vehicleThreeBox;
+    delete vehicleFourBox;
+    delete vehicleFiveBox;
+    delete menuBarHelp;
+    delete vehicleBoxesHelp;
+    delete exitButtonHelp;
+    delete vehicleButtonHelp;
+    delete missionButtonHelp;
+    delete roverButtonHelp;
+    delete quadButtonHelp;
+    delete fwuavButtonHelp;
+    delete missionFromVehicleButtonHelp;
+    delete backButtonHelpVehicle;
+    delete reachBoxHelp;
+    delete patrolBoxHelp;
+    delete noflyBoxHelp;
+    delete rectangleBoxHelp;
+    delete circleBoxHelp;
+    delete polygonBoxHelp;
+    delete backButtonHelpMission;
+    delete editHelp;
+    delete saveAct;
+    delete saveAsAct;
+    delete exitAct;
+    delete undoAct;
+    delete zoomInAct;
+    delete zoomOutAct;
+    delete deleteAct;
+    delete helpAct;
+    delete vehicleAct;
+    delete missionAct;
+    delete editAct;
+    delete backAct;
+    delete vehicleOneAct;
+    delete vehicleTwoAct;
+    delete vehicleThreeAct;
+    delete vehicleFourAct;
+    delete vehicleFiveAct;
+    delete fileMenu;
+    delete toolMenu;
+    delete menuMenu;
+    delete vehicleMenu;
 }
 
 
@@ -169,10 +226,12 @@ void MapWindow::saveActDone() {
         QTextStream stream(&file);
         stream << "BEGIN_QMP_ENCODING" << endl
                << "Directory: " << saveDirectory << endl
-               << "pixel: " << pixelLength << " real: " << realLength << " origin: " << pixelOrigin.x() << " " << pixelOrigin.y() << endl
+               << "pixel: " << pixelLength << " real: " << realLength
+               << " origin: " << pixelOrigin.x() << " " << pixelOrigin.y() << endl
                << "v_amount: " << vehicleAmount << endl
-               << "v_available: " << availableVehicles[0] << " " << availableVehicles[1] << " " << availableVehicles[2] << " " << availableVehicles[3] << " " << availableVehicles[4] << endl << endl
-               << "Control_Information:" << endl;
+               << "v_available: " << availableVehicles[0] << " " << availableVehicles[1] << " "
+               << availableVehicles[2] << " " << availableVehicles[3] << " " << availableVehicles[4]
+               << endl << endl << "Control_Information:" << endl;
         for(int i = 0; i < vehicleAmount; i++) {
             Vehicle *vehicle = vehicles[findRealIndex(i)];
             stream << "Vehicle " << vehicle->getVehicleType() << " " <<
@@ -197,7 +256,7 @@ void MapWindow::saveActDone() {
 void MapWindow::saveAsActDone() {
     QInputDialog inputDialog;
     QString folderName = inputDialog.getText(this, "Input",
-                                       "Please input the folder name. Only use letters and underscore characters.",
+                                       "Please input the folder name.\nOnly use letters and underscore characters.",
                                        QLineEdit::Normal, "Folder Name", nullptr, Qt::MSWindowsFixedSizeDialogHint, Qt::ImhLowercaseOnly);
     if(folderName.isNull() || folderName.isEmpty()) {
         QMessageBox errorMessageBox(QMessageBox::Information, "Canceled",
@@ -214,7 +273,9 @@ void MapWindow::saveAsActDone() {
         errorMessageBox.exec();
         return;
     }
-    QString pathName = QFileDialog::getExistingDirectory(this, "Select a folder", QStandardPaths::writableLocation(QStandardPaths::DocumentsLocation), QFileDialog::ShowDirsOnly | QFileDialog::DontResolveSymlinks);
+    QString pathName = QFileDialog::getExistingDirectory(this, "Select a folder",
+                                                         QStandardPaths::writableLocation(QStandardPaths::DocumentsLocation),
+                                                         QFileDialog::ShowDirsOnly | QFileDialog::DontResolveSymlinks);
     if(pathName.isNull() || pathName.isEmpty()) {
         QMessageBox errorMessageBox(QMessageBox::Information, "Canceled",
                                     "Folder selection has been canceled.",
@@ -322,7 +383,8 @@ void MapWindow::vehicleButtonClicked() {
     fwuavButton->show();
     missionFromVehicleButton->show();
     backButton->show();
-    backButton->move(missionFromVehicleButton->pos().x(), missionFromVehicleButton->pos().y() + missionFromVehicleButton->size().height() + BUTTON_OFFSET);
+    backButton->move(missionFromVehicleButton->pos().x(),
+                     missionFromVehicleButton->pos().y() + missionFromVehicleButton->size().height() + BUTTON_OFFSET);
     menuNumber = 1;
     isInHelp = false;
     vehicleButtonHelp->hide();
@@ -376,7 +438,8 @@ void MapWindow::missionButtonClicked() {
     circleBox->show();
     polygonBox->show();
     backButton->show();
-    backButton->move(polygonBox->pos().x(), polygonBox->pos().y() + polygonBox->size().height() + BUTTON_OFFSET);
+    backButton->move(polygonBox->pos().x(),
+                     polygonBox->pos().y() + polygonBox->size().height() + BUTTON_OFFSET);
     menuNumber = 2;
     isInHelp = false;
 }

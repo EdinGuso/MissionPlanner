@@ -54,9 +54,9 @@ QVector<double> VehicleInputDialog::getInputs() {
 
 
 void VehicleInputDialog::checkInputs() {
+    ///if all the line edits have been filled in, accept the signal
     for(int i = 0; i < fields.size(); i++)
         if(fields[i]->text() == "")
             return;
-
     accept();
 }
