@@ -1,0 +1,11 @@
+<RCC>
+    <qresource prefix="/Icons">
+        <file>rover.png</file>
+        <file>fwuav.png</file>
+        <file>quad.png</file>
+        <file>circle.png</file>
+        <file>polygon.png</file>
+        <file>rectangle.png</file>
+        <file>taskbar.png</file>
+    </qresource>
+</RCC>
